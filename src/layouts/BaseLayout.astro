@@ -1,0 +1,56 @@
+---
+import { Font } from "astro:assets";
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es-ES">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <Font
+      cssVariable="--font-literata"
+      preload={[{ weight: "400", style: "normal" }]}
+    />
+    <Font cssVariable="--font-bricolage-grotesque" preload />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  /* Keep the footer at the bottom on short pages */
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    margin-top: var(--space-xl);
+    padding-inline: var(--space-l);
+  }
+</style>

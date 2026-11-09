@@ -1,0 +1,91 @@
+---
+import Logo from "../assets/logo.svg";
+
+const links = [
+  { href: "/journal", label: "Diario" },
+  { href: "/notebook", label: "Cuaderno" },
+  { href: "/contact", label: "Contacto" },
+];
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  currentPath === href || currentPath.startsWith(`${href}/`);
+---
+
+<header class="site-header">
+  <div class="inner">
+    <a href="/" class="home-link" aria-label="Necronomicode, inicio">
+      <Logo class="logo" aria-hidden="true" />
+    </a>
+    <nav aria-label="Principal">
+      <ul class="nav-list">
+        {
+          links.map(({ href, label }) => (
+            <li>
+              <a
+                href={href}
+                class="nav-link"
+                aria-current={isCurrent(href) ? "page" : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: var(--space-m) var(--space-l);
+  }
+
+  .home-link {
+    display: inline-block;
+  }
+
+  .logo {
+    display: block;
+    width: auto;
+    height: calc(var(--space-xl) * 1.25);
+  }
+
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-m);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Inactive links are muted; the accent marks hover and the current section */
+  .nav-link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current="page"] {
+    color: var(--color-accent);
+  }
+
+  .nav-link[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: var(--space-2xs);
+  }
+</style>
