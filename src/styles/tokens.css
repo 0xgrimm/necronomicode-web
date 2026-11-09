@@ -1,0 +1,52 @@
+/*
+ * Design tokens for Necronomicode.
+ * The rest of the CSS uses these variables, never raw values.
+ */
+
+:root {
+	/* Color: Parchment palette (dark theme) */
+	--color-background: #15130f;
+	--color-surface: #1f1c16; /* Header and footer, one step above the page */
+	--color-text: #ede6d6;
+	--color-text-muted: #a39a88;
+	--color-border: #2e2a22;
+	--color-accent: #ecf53e; /* Brand yellow */
+
+	/* Typefaces (code typeface deferred). Loaded by Astro, see astro.config.mjs */
+	--font-body: var(--font-literata);
+	--font-title: var(--font-bricolage-grotesque);
+
+	/* Weights */
+	--weight-regular: 400;
+	--weight-semibold: 600; /* <strong> in body text */
+	--weight-bold: 700; /* Every title and subtitle */
+
+	/* Type scale: base 1.125rem, ratio 1.25 */
+	--text-small: 0.875rem;
+	--text-base: 1.125rem;
+	--text-h3: 1.375rem;
+	--text-h2: clamp(1.625rem, 1.5625rem + 0.3125vw, 1.75rem); /* 26 → 28 px */
+	--text-h1: clamp(1.875rem, 1.6875rem + 0.9375vw, 2.25rem); /* 30 → 36 px */
+
+	/* Line heights (unitless) */
+	--leading-small: 1.5;
+	--leading-base: 1.7;
+	--leading-h3: 1.4;
+	--leading-h2: 1.3;
+	--leading-h1: 1.2;
+
+	/* Spacing: 4 px unit */
+	--space-2xs: 0.25rem;
+	--space-xs: 0.5rem;
+	--space-s: 0.75rem;
+	--space-m: 1rem;
+	--space-l: 1.5rem;
+	--space-xl: 2rem;
+	--space-2xl: 3rem;
+	--space-3xl: 4rem;
+	--space-4xl: 6rem;
+
+	/* Widths */
+	--measure: 65ch; /* Running text */
+	--container: 60rem; /* Page frame */
+}
