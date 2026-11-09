@@ -1,0 +1,95 @@
+/*
+ * Base styles applied to every page.
+ * Values come from tokens.css; never use raw values here.
+ */
+
+@import "./tokens.css";
+
+:root {
+	color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background-color: var(--color-background);
+	color: var(--color-text);
+	font-family: var(--font-body);
+	font-size: var(--text-base);
+	font-weight: var(--weight-regular);
+	line-height: var(--leading-base);
+	/* Never fake a bold: semibold italic is not loaded, so italic falls back to regular */
+	font-synthesis-weight: none;
+}
+
+/* Headings */
+
+h1,
+h2,
+h3 {
+	margin: 1.5em 0 0.5em;
+	font-family: var(--font-title);
+	font-weight: var(--weight-bold);
+	text-wrap: balance;
+}
+
+/* The entry title opens the page, so nothing above it needs separating */
+h1 {
+	margin-top: 0;
+	color: var(--color-accent);
+	text-align: center;
+	font-size: var(--text-h1);
+	line-height: var(--leading-h1);
+}
+
+h2 {
+	font-size: var(--text-h2);
+	line-height: var(--leading-h2);
+}
+
+h3 {
+	font-size: var(--text-h3);
+	line-height: var(--leading-h3);
+}
+
+/* Running text */
+
+p {
+	margin: 0 0 1em;
+}
+
+strong,
+b {
+	font-weight: var(--weight-semibold);
+}
+
+small {
+	font-size: var(--text-small);
+	line-height: var(--leading-small);
+}
+
+a {
+	color: var(--color-accent);
+}
+
+:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: var(--space-2xs);
+}
+
+/* Media */
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid var(--color-border);
+}
