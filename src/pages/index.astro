@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 ---
 
 <html lang="en">
@@ -8,6 +9,8 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<Font cssVariable="--font-literata" preload={[{ weight: "400", style: "normal" }]} />
+		<Font cssVariable="--font-bricolage-grotesque" preload />
 		<title>Astro</title>
 	</head>
 	<body>
