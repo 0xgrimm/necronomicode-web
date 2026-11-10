@@ -1,16 +1,25 @@
 ---
 import { getCollection, render } from "astro:content";
-import EntryMeta from "../../components/EntryMeta.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { entryCollections, type Entry } from "../../lib/entries";
+import EntryMeta from "../components/EntryMeta.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { entryCollections, type Entry } from "../lib/entries";
 
 export async function getStaticPaths() {
 	const entries = (
 		await Promise.all(entryCollections.map((name) => getCollection(name)))
 	).flat();
 
+	// Entries live at the site root, so an id must not repeat or shadow another page
+	const taken = new Set<string>([...entryCollections, "contact", "tags"]);
+	for (const { id, collection } of entries) {
+		if (taken.has(id)) {
+			throw new Error(`Entry "${collection}/${id}" collides with another URL: /${id}`);
+		}
+		taken.add(id);
+	}
+
 	return entries.map((entry) => ({
-		params: { collection: entry.collection, id: entry.id },
+		params: { id: entry.id },
 		props: { entry },
 	}));
 }
