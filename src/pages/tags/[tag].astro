@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import EntryList from "../../components/EntryList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+	byNewestFirst,
+	entryCollections,
+	tagKey,
+	tagSlug,
+	type Entry,
+} from "../../lib/entries";
+
+export async function getStaticPaths() {
+	const entries = (
+		await Promise.all(entryCollections.map((name) => getCollection(name)))
+	)
+		.flat()
+		.sort(byNewestFirst);
+
+	// Tags that only differ in case or accents share one page, named after the first one found.
+	// Different tags that end up with the same slug, or with none, fail the build.
+	const pages = new Map<string, { tag: string; entries: Entry[] }>();
+	for (const entry of entries) {
+		const slugs = new Set<string>();
+		for (const tag of entry.data.tags) {
+			const slug = tagSlug(tag);
+			const where = `${entry.collection}/${entry.id}`;
+			if (!slug) {
+				throw new Error(
+					`Tag "${tag}" in ${where} has an empty slug; add it to tagSlugOverrides in src/lib/entries.ts`,
+				);
+			}
+			const page = pages.get(slug) ?? { tag, entries: [] };
+			if (tagKey(page.tag) !== tagKey(tag)) {
+				throw new Error(
+					`Tags "${page.tag}" and "${tag}" (in ${where}) share the slug "${slug}"; add one of them to tagSlugOverrides in src/lib/entries.ts`,
+				);
+			}
+			if (slugs.has(slug)) continue;
+			slugs.add(slug);
+			page.entries.push(entry);
+			pages.set(slug, page);
+		}
+	}
+
+	return [...pages].map(([tag, props]) => ({ params: { tag }, props }));
+}
+
+const { tag, entries } = Astro.props;
+---
+
+<BaseLayout title={`${tag} | Necronomicode`}>
+	<div class="column">
+		<h1>{tag}</h1>
+		<EntryList entries={entries} />
+	</div>
+</BaseLayout>
+
+<style>
+	.column {
+		max-width: var(--measure);
+		margin-inline: auto;
+	}
+</style>
