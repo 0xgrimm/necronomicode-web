@@ -1,5 +1,5 @@
 ---
-import { formatDate } from "../lib/entries";
+import { formatDate, tagUrl } from "../lib/entries";
 
 interface Props {
 	date: Date;
@@ -15,7 +15,7 @@ const { date, tags } = Astro.props;
 		{
 			tags.map((tag) => (
 				<li>
-					<a class="tag" href={`/tags/${tag}`}>
+					<a class="tag" href={tagUrl(tag)}>
 						{tag}
 					</a>
 				</li>
