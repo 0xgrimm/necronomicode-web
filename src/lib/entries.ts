@@ -12,7 +12,7 @@ export const entryCollections = Object.keys(
 	collectionLabels,
 ) as EntryCollection[];
 
-export const entryUrl = ({ collection, id }: Entry) => `/${collection}/${id}`;
+export const entryUrl = ({ id }: Entry) => `/${id}`;
 
 export const byNewestFirst = (a: Entry, b: Entry) =>
 	b.data.date.valueOf() - a.data.date.valueOf();
