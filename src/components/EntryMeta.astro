@@ -1,0 +1,54 @@
+---
+import { formatDate } from "../lib/entries";
+
+interface Props {
+	date: Date;
+	tags: string[];
+}
+
+const { date, tags } = Astro.props;
+---
+
+<div class="meta">
+	<time datetime={date.toISOString()}>{formatDate(date)}</time>
+	<ul class="tags">
+		{
+			tags.map((tag) => (
+				<li>
+					<a class="tag" href={`/tags/${tag}`}>
+						{tag}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</div>
+
+<style>
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-s);
+		font-size: var(--text-small);
+		line-height: var(--leading-small);
+		color: var(--color-text-muted);
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.tag {
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+
+	.tag:hover {
+		text-decoration: underline;
+	}
+</style>

@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from "astro:content";
+import EntryMeta from "../../components/EntryMeta.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { entryCollections, type Entry } from "../../lib/entries";
+
+export async function getStaticPaths() {
+	const entries = (
+		await Promise.all(entryCollections.map((name) => getCollection(name)))
+	).flat();
+
+	return entries.map((entry) => ({
+		params: { collection: entry.collection, id: entry.id },
+		props: { entry },
+	}));
+}
+
+interface Props {
+	entry: Entry;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} | Necronomicode`}>
+	<article class="entry">
+		<header class="entry-header">
+			<h1>{entry.data.title}</h1>
+			<EntryMeta date={entry.data.date} tags={entry.data.tags} />
+		</header>
+		<Content />
+	</article>
+</BaseLayout>
+
+<style>
+	.entry {
+		max-width: var(--measure);
+		margin-inline: auto;
+	}
+
+	/* A faint rule separates the title block from the entry text */
+	.entry-header {
+		margin-bottom: var(--space-xl);
+		padding-bottom: var(--space-m);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.entry-header h1 {
+		margin-bottom: var(--space-xs);
+	}
+
+	/* The title is centered, so its meta line follows it */
+	.entry-header :global(.meta) {
+		justify-content: center;
+	}
+</style>

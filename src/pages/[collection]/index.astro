@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import EntryList from "../../components/EntryList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+	byNewestFirst,
+	collectionLabels,
+	entryCollections,
+	type EntryCollection,
+} from "../../lib/entries";
+
+export function getStaticPaths() {
+	return entryCollections.map((collection) => ({ params: { collection } }));
+}
+
+const collection = Astro.params.collection as EntryCollection;
+const label = collectionLabels[collection];
+const entries = (await getCollection(collection)).sort(byNewestFirst);
+---
+
+<BaseLayout title={`${label} | Necronomicode`}>
+	<div class="column">
+		<h1>{label}</h1>
+		<EntryList entries={entries} />
+	</div>
+</BaseLayout>
+
+<style>
+	.column {
+		max-width: var(--measure);
+		margin-inline: auto;
+	}
+</style>
