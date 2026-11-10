@@ -1,43 +1,35 @@
-# Astro Starter Kit: Minimal
+# Necronomicode
 
-```sh
-npm create astro@latest -- --template minimal
+Source code of the Necronomicode blog, built with [Astro](https://astro.build).
+
+## Requirements
+
+- Node.js 24 or later
+- pnpm
+
+## Commands
+
+| Command        | Action                                         |
+| -------------- | ---------------------------------------------- |
+| `pnpm install` | Install dependencies                           |
+| `pnpm dev`     | Start the local dev server at `localhost:4321` |
+| `pnpm build`   | Build the site to `./dist/`                    |
+| `pnpm preview` | Preview the build locally                      |
+
+## Content
+
+Entries are Markdown files in two collections. What separates them is whether the text changes over time, not its topic.
+
+- `src/content/journal/` (Diario): entries fixed in time, such as a reflection at a given moment or a project in progress. Like a diary, once written they stay as they are.
+- `src/content/notebook/` (Cuaderno): living notes worth keeping that may change, such as commands to revisit, an index that groups related articles, or a how-to for something easy to forget.
+
+Each entry needs this frontmatter:
+
+```yaml
+---
+title: Entry title
+date: 2026-11-10
+tags:
+  - astro
+---
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
