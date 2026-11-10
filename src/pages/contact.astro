@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const email = "grimm@necronomicode.com";
+---
+
+<BaseLayout
+	title="Contacto | Necronomicode"
+	description="Cómo contactar con Necronomicode."
+>
+	<div class="column">
+		<h1>Contacto</h1>
+		<p>
+			Puedes escribirme a <a href={`mailto:${email}`}>{email}</a>.
+		</p>
+	</div>
+</BaseLayout>
+
+<style>
+	.column {
+		max-width: var(--measure);
+		margin-inline: auto;
+	}
+</style>
